@@ -12,5 +12,9 @@ public interface PartyRepo extends JpaRepository<Party, Long>{
 		// JPQL
 		
 		List<Party> findAll();
+		List<Party> findAllByName(String name);
+		List<Party> findByNameLike(String name);
+
+		
 
 }

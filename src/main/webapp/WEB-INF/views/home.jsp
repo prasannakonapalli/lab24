@@ -20,31 +20,52 @@
 
 
 	<div class="container">
-	<div>
-		 Navigation: <a href ="vote" >Options & votes</a> > <a href ="review">Review Options</a>
-		 </div>
-		<h2 class="display-4">Parties</h2>
-		
-			
-		
-			
-			
-			
-				<c:forEach var="classroom" items="${parties}">
-				
+		<div>
+			Navigation: <a href="vote">Options & votes</a> > <a href="review">Review
+				Options</a> > <a href="adminPage">Admin</a>
+		</div>
+		<br>
+		<div>
+			<h2 class="display-4">Parties</h2>
+			<br>
+			<h3 class="display-6">Search</h3>
+		</div>
+		<form action="/searchname" method="post">
+
+
+			<div>
+				By Name: <input type="text" name="Name1" />
+
+			</div>
+			<br>
+			<div>
+				By Date: <input type="radio" name="radiobutton" id="all" value="all"
+					required> <label for="all">all time</label> <input
+					type="radio" name="radiobutton" id="future" value="future">
+				<label for="future">future only</label> <input type="radio"
+					name="radiobutton" id="past" value="past"> <label
+					for="past">past only</label>
+
+			</div>
+
+			<button type="submit">Search</button>
+			<br>
+			<br>
+			<c:forEach var="classroom" items="${parties}">
+
 				<ul>
-				<li>${classroom.name}-${classroom.date}<br></li>
+					<li>${classroom.name}-${classroom.date}<br></li>
 				</ul>
-					
-					
-					
-				
-				
-				</c:forEach>
-				
-			
-		
-		
+
+
+
+
+
+			</c:forEach>
+
+
+		</form>
+
 
 
 
