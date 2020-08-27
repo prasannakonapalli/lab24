@@ -19,7 +19,7 @@
 <body>
 
 
-	<div class="container">
+	<div class="container card">
 		<div class="display-6">
 			Navigation: <a href="/">Back to Homepage</a>
 		</div>

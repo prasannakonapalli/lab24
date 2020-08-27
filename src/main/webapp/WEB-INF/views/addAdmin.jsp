@@ -19,7 +19,7 @@
 <body>
 
 
-	<div class="container">
+	<div class="container card">
 		<div>
 			Navigation: <a href="/">Back to Party List</a>
 		</div>

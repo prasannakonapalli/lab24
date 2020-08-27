@@ -32,10 +32,11 @@ public class PartyOptionController {
 		return "vote";
 }
 	@RequestMapping("/incrementvote")
-	public String modifylist(@RequestParam("id") Long id) {
+	public String modifylist(@RequestParam("id") Long id){
 //		Optional<PartyOption> optionalPartyOption;
 //		optionalPartyOption=dao1.findById(id);
 //		PartyOption partyOption=optionalPartyOption.get();
+		//(@RequestParam("id") Long id
 		
 		PartyOption partyOption = dao1.findById(id).get();
 		int vote=partyOption.getVotes();

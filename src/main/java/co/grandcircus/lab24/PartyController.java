@@ -2,6 +2,8 @@ package co.grandcircus.lab24;
 
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -12,9 +14,16 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+//import co.grandcircus.pokemonrelations.entity.Pokemon;
+
+//import co.grandcircus.pokemonrelations.entity.Trainer;
+
+//import co.grandcircus.pokemonrelations.entity.Trainer;
 
 // co.grandcircus.jdbcintro.dao.RoomRepo;
 
@@ -23,6 +32,8 @@ public class PartyController {
 
 	@Autowired
 	private PartyRepo dao;
+	@Autowired
+	private RsvpRepo dao3;
 
 	@RequestMapping("/")
 	public String index() {
@@ -34,6 +45,7 @@ public class PartyController {
 		List<Party> parties;
 		parties = dao.findAll();
 		model.addAttribute("parties", parties);
+
 		return "home";
 	}
 
@@ -89,7 +101,7 @@ public class PartyController {
 	}
 
 	@RequestMapping("/editAdmin")
-	//public String showEditParty(Party party, Model model) {
+	// public String showEditParty(Party party, Model model) {
 	public String showEditParty(@RequestParam("id") Long partyId, Model model) {
 		Party party = dao.findById(partyId).get();
 		model.addAttribute("party", party);
@@ -111,10 +123,50 @@ public class PartyController {
 	}
 
 	@RequestMapping("/deleteAdmin")
-	public String deleteParty(@RequestParam("id") Long partyId) {
+	public String deleteParty(@RequestParam("id") Party party) {
 
-		dao.deleteById(partyId);
+//		System.out.println(party.getName());
+//		var rsp=party.getRsvps();
+//		 
+		List<Rsvp> rsvps;
+
+		party.setRsvps(null);
+		dao.save(party);
+		rsvps = dao3.findRsvpsByPartyId(party.getId());
+		rsvps.forEach(r -> dao3.deleteById(r.getId()));
+
+		dao.deleteById(party.getId());
 		return "redirect:/adminPage";
+	}
+
+	@RequestMapping("/rsvpadd")
+
+	public String addRsvp(Rsvp rsvp, Model model) {
+
+		dao3.save(rsvp);
+		// dao.save(party);
+
+		return "redirect:/";
+	}
+
+	/*
+	 * public String addPokemon(Model model) {
+	 * 
+	 * // TODO create new pokemon form // add entire list of trainers to form
+	 * List<Trainer> trainers = trainerDao.findAll();
+	 * model.addAttribute("leListOfTrainers",trainers);
+	 * 
+	 * return "pokemon-add"; }
+	 */
+	@RequestMapping("/partydetails/{id}")
+	public String listRsvps(@PathVariable("id") Party party, Model model) {
+		List<Rsvp> rsvps;
+		rsvps = dao3.findRsvpsByPartyId(party.getId());
+
+		model.addAttribute("party", party);
+		model.addAttribute("rspvs", rsvps);
+
+		return "partyDetail";
 	}
 
 }

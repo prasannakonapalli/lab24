@@ -19,7 +19,7 @@
 <body>
 
 
-	<div class="container">
+	<div class="container card">
 		<div>
 			Navigation: <a href="/parties">Parties</a> > <a href="/vote">Options & votes</a>
 		</div>

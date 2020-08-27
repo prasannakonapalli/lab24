@@ -19,16 +19,11 @@
 <body>
 
 
-	<div class="container">
+	<div class="container card">
 		<div>
 			Navigation: <a href="/review">Parties Review Options</a>
 		</div>
 		<h2 class="display-4">Pizza Options</h2>
-
-
-
-
-
 
 
 		<form action="/add" method="post">
@@ -43,17 +38,23 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="classroom" items="${partyOptions}">
+					<c:forEach var="partyOptions" items="${partyOptions}">
+
 						<tr>
 
-							<td>${classroom.name}</td>
-							<td>${classroom.description}</td>
-							<td>${classroom.votes}</td>
-							<td><a href="/incrementvote?id=${classroom.id}">vote! </a></td>
+							<td>${partyOptions.name}</td>
+							<td>${partyOptions.description}</td>
+							<td>${partyOptions.votes}</td>
+
+							<td><a href="/incrementvote?id=${partyOptions.id}">vote!
+							</a></td>
 
 
 						</tr>
 					</c:forEach>
+
+
+
 				</tbody>
 			</table>
 			<br>
@@ -64,14 +65,7 @@
 				<button type="submit">Add</button>
 
 			</div>
-
-
-
 		</form>
-
-
-
-
 
 	</div>
 
